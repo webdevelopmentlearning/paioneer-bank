@@ -11,15 +11,117 @@
 </head>
 
 <body>
-    <div class="login-area">
+    <div id="loginArea" class="login-area">
         <h1 class="text-center">Welcome To Paionner Bank</h1>
         <div class="submit-area">
             <h4>login Page</h4>
             <input class="form-control" type="text" name="" id="" placeholder="Email"> <br>
             <input class="form-control" type="password" name="" id="" placeholder="Password"> <br>
-            <button class="btn btn-success">Login</button>
+            <button id="login" class="btn btn-success">Login</button>
         </div>
     </div>
+    <div id="transaction-area">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="deposit status">
+                    <h5>Deposit</h5>
+                    <h2>$ <span id="currentDeposit">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="widhraw status">
+                    <h5>Widhraw</h5>
+                    <h2>$ <span id="widrawtaka">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="balance status">
+                    <h5>Balance</h5>
+                    <h2>$ <span id="balance">1200</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="submit-area">
+                    <h5>Deposit</h5>
+                    <input id="depositAmount" class="form-control" type="text" name="" id="" placeholder="$ You Want to Deposit"> <br>
+                    <button id="depositBtn" class="btn btn-success">Deposit</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="submit-area">
+                    <h5>Widhraw</h5>
+                    <input id="widrawBalance" class="form-control" type="text"placeholder="$ You Want to Widhraw"> <br>
+                    <button id="widrawBtn" class="btn btn-success">Widhraw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    const loginBtn = document.getElementById('login');
+    loginBtn.addEventListener('click', function(){
+    const loginArea = document.getElementById('loginArea');
+        loginArea.style.display="none";
+    const transactionArea = document.getElementById('transaction-area');
+    transactionArea.style.display='block';
+    })
+
+//Deposit Click Handler
+    const depositBtn = document.getElementById('depositBtn');
+    depositBtn.addEventListener('click',function (){
+    const depositAmount = document.getElementById('depositAmount').value;
+    const depositNumber = parseFloat(depositAmount);
+    // const depositAdd = document.getElementById('addDeposit').innerText;
+    // const depositAddNumber = parseFloat(depositAdd);
+    // const total = depositNumber+depositAddNumber;
+    // document.getElementById('addDeposit').innerText=total
+        updateBalance('currentDeposit',depositNumber)
+
+        updateBalance('balance',depositNumber)
+    // const currentAmount = document.getElementById('balance').innerText;
+    // const currentNumber = parseFloat(currentAmount);
+    // const totalBalance = currentNumber+depositNumber;
+    // document.getElementById('balance').innerText=totalBalance
+
+    document.getElementById('depositAmount').value='';
+
+    })
+function updateBalance(id,depositNumber){
+    const currentAmount = document.getElementById(id).innerText;
+    const currentNumber = parseFloat(currentAmount);
+    const totalBalance = currentNumber+depositNumber;
+    document.getElementById(id).innerText=totalBalance
+
+}
+
+
+
+function getInputNumber(id){
+    const finalBalance = document.getElementById(id).innerText;
+    const finalBalanceNumber = parseFloat(finalBalance)
+    return finalBalanceNumber;
+}
+//Widhraw Click Handler
+const widhrawHandler = document.getElementById('widrawBtn');
+widhrawHandler.addEventListener('click',function (){
+const currentWidraw = document.getElementById('widrawBalance').value;
+const widrawNumber = parseFloat(currentWidraw);
+const amountTk = getInputNumber('widrawtaka');
+// const widhrawTk = document.getElementById('widrawtaka').innerText;
+// const widrawTkBalnce = parseFloat(widhrawTk);
+const totalWidraw = amountTk+widrawNumber;
+document.getElementById('widrawtaka').innerText=totalWidraw
+
+const amount = getInputNumber('balance');
+// const finalBalance = document.getElementById('balance').innerText;
+// const finalBalanceNumber = parseFloat(finalBalance)
+const totalFinalBalance = amount-widrawNumber;
+document.getElementById('balance').innerText=totalFinalBalance;
+document.getElementById('widrawBalance').value='';
+})
+</script>
 </body>
 
 </html>
